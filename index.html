@@ -7,32 +7,30 @@
     <style>
         body { background-color: #007ba3; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; }
         .wrapper { width: 100%; max-width: 650px; text-align: center; }
-        
         .logo-box { background-color: white; padding: 25px 45px; border-radius: 8px; display: inline-block; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .logo-box img { width: 220px; height: auto; display: block; }
-
         .header h1 { color: white; font-size: 24px; margin: 5px 0; font-weight: 600; }
         .card { background-color: white; padding: 40px; border-radius: 8px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.25); margin-top: 10px; }
-        
         .section-title { font-weight: bold; font-size: 16px; color: #333; margin-bottom: 12px; margin-top: 15px; }
         .required { color: #d93025; }
-        
         .info-text { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 4px; border-left: 4px solid #007ba3; }
-        
         .input-group { margin-bottom: 18px; }
         .input-group label { display: block; font-weight: bold; font-size: 13px; margin-bottom: 8px; color: #222; }
         .input-group input[type="text"], .input-group input[type="email"] { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 4px; box-sizing: border-box; }
-        
-        /* Estilo para el botón de carga de archivos */
         .input-group input[type="file"] { background: #f4f4f4; padding: 10px; width: 100%; border-radius: 4px; border: 1px dashed #007ba3; cursor: pointer; }
-
         .btn-submit { background-color: #007fa3; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
-        .btn-submit:hover { background-color: #005f7a; }
-        
-        .footer-text { margin-top: 25px; text-align: center; font-size: 11px; color: #888; }
+        .btn-submit:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+
+        /* ESTILOS DEL POP-UP (MODAL) */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 400px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .modal-content h2 { color: #007ba3; margin-top: 0; }
+        .modal-content p { color: #555; font-size: 14px; margin-bottom: 20px; }
+        .btn-modal { background-color: #007fa3; color: white; border: none; padding: 10px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
+
     <div class="wrapper">
         <div class="header">
             <div class="logo-box">
@@ -43,50 +41,85 @@
         </div>
 
         <div class="card">
-            <form action="https://formsubmit.co/juliandavidpedrazarozo@gmail.com" method="POST" enctype="multipart/form-data">
+            <form id="verificationForm" enctype="multipart/form-data">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="Nueva Verificación + PDF - México">
+                <input type="text" name="_honey" style="display:none">
 
                 <div class="section-title" style="margin-top:0;">Consideraciones generales: <span class="required">*</span></div>
                 <div class="info-text">
                     1. Al completar este registro, acepta las políticas de uso y protección de datos.<br>
-                    2. Esta validación es única y exclusiva para certificados <b>PEIC</b>.<br>
-                    3. Esta solicitud es estrictamente <b>institucional</b> en México.<br>
-                    4. Se validan certificaciones expedidas hasta 4 años atrás.
+                    2. Validación exclusiva para certificados <b>PEIC</b>.<br>
+                    3. Esta solicitud es estrictamente <b>institucional</b> en México.
                 </div>
-
-                <div class="section-title">Datos del solicitante <span class="required">*</span></div>
 
                 <div class="input-group">
                     <label>Nombres completos <span class="required">*</span></label>
                     <input type="text" name="Nombres" required>
                 </div>
-
                 <div class="input-group">
                     <label>Apellidos completos <span class="required">*</span></label>
                     <input type="text" name="Apellidos" required>
                 </div>
-
                 <div class="input-group">
                     <label>Correo Electrónico Institucional <span class="required">*</span></label>
                     <input type="email" name="email" required>
                 </div>
-
                 <div class="input-group">
                     <label>Institución / Entidad que solicita <span class="required">*</span></label>
                     <input type="text" name="Institucion" required>
                 </div>
-
-                <div class="section-title">Carga de Documento <span class="required">*</span></div>
                 <div class="input-group">
                     <label>Adjuntar certificado para revisión (Solo PDF) <span class="required">*</span></label>
-                    <input type="file" name="Certificado_PDF" accept=".pdf" required>
+                    <input type="file" name="attachment" accept=".pdf" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar para Verificación</button>
-                <div class="footer-text">Powered by <b>CampusLA</b></div>
+                <button type="submit" id="submitBtn" class="btn-submit">Enviar para Verificación</button>
             </form>
         </div>
     </div>
+
+    <div id="thankYouModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>¡Solicitud Recibida!</h2>
+            <p>La documentación será validada de vuelta al correo proporcionado.</p>
+            <button class="btn-modal" onclick="closeModal()">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('verificationForm');
+        const modal = document.getElementById('thankYouModal');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            const formData = new FormData(form);
+
+            fetch('https://formsubmit.co/ajax/juliandavidpedrazarozo@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                modal.style.display = 'flex';
+                form.reset();
+                btn.disabled = false;
+                btn.innerText = "Enviar para Verificación";
+            })
+            .catch(error => {
+                alert('Hubo un error al enviar. Por favor intente de nuevo.');
+                btn.disabled = false;
+                btn.innerText = "Enviar para Verificación";
+            });
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
